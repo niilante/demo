@@ -1,22 +1,47 @@
-const debug = require('debug')('amio-demo:routing-records.controller')
+const debug = require('debug')('amio-demo:demo.controller')
 const messageService = require('../services/amio-api/message.service')
+const os = require('os')
 
 
 class DemosController {
 
   static async sendReceipt(req, res, next) {
-    debug('addRecord() - body: ', req.body, ', params: ', req.params)
-    const {channel, phoneNumber, firstName, lastName} = req.body
-
-    const contact = {
-      phone_number: phoneNumber,
-      first_name: firstName,
-      last_name: lastName
-    }
+    debug('sendReceipt() - body: ', req.body, ', params: ', req.params)
+    debug(os.hostname())
+    const {channel, contact} = req.body
 
     const content = {
-      type: "text",
-      payload: "Hello world!"
+      "type": "receipt",
+      "payload": {
+        "order_id": "MUST BE UNIQUE = order_number",
+        "timestamp": "2017-01-19T10:31:00Z",
+        "currency": "CZK",
+        "payment_method": "Payment method details. This can be a custom string. ex: \"Visa 1234\".",
+        "url_order": "http://petersapparel.parseapp.com/order?order_id=123456",
+        "shipping_address": {
+          "name": "Stephane Crozatier",
+          "address_line_1": "Ve smečkách 46",
+          "address_line_2": "Amio s.r.o.",
+          "city": "Praha",
+          "postal_code": "11000",
+          "state": "Prague = State abbreviation or Region/Province (international)",
+          "country_code": "CZ"
+        },
+        "items": [
+          {
+            "title": "Classic White T-Shirt",
+            "text": "100% Soft and Luxurious Cotton",
+            "quantity": 2,
+            "price": 50,
+            "image_url": "https://storage.amio.io/Lovelyloops.jpg"
+          }
+        ],
+        "summary": {
+          "shipping": 4.95,
+          "tax": 6.19,
+          "total": 56.14
+        }
+      }
     }
 
     await messageService.sendMessage(contact, channel, content)

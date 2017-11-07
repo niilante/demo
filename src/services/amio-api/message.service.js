@@ -1,3 +1,4 @@
+const debug = require('debug')('amio-demo:message.service')
 const amioHttpClient = require('./http/amio.http-client')
 
 class MessageService {
@@ -7,6 +8,7 @@ class MessageService {
   }
 
   sendMessage(contact, channel, content) {
+    debug('sendMessage() - ', contact, channel)
     const message = {
       contact,
       channel,

@@ -1,4 +1,4 @@
-const debug = require('debug')('amio-whatsapp-gateway:middleware.general-error-handler')
+const debug = require('debug')('amio-demo:middleware.general-error-handler')
 
 module.exports = (err, req, res, next) => {
   debug(err, err.stack)
