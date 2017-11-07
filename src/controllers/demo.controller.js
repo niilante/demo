@@ -54,39 +54,47 @@ class DemosController {
 
 
 function createRecommendationsPayload() {
-  return {
-    "content": {
-      "type": "structure",
-      "payload": [
+  return [
+    {
+      "title": "iPhone 7 32GB",
+      "text": "16 490,-",
+      "image_url": "https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/i/ph/iphonese/gallery2/iphonese-gallery2-2016_GEO_US?wid=835&hei=641&fmt=jpeg&qlt=95&op_sharpen=0&resMode=bicub&op_usm=0.5,0.5,0,0&iccEmbed=0&layer=comp&.v=1482358620080",
+      "item_url": "https://www.alza.cz/iphone-se?dq=4827679",
+      "buttons": [
         {
-          "title": "Flight Ticket to Timișoara",
-          "text": "125 €",
-          "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Catedrala_din_Timisoara.jpg",
-          "item_url": "https://www.google.cz/maps/place/Temesvar",
-          "buttons": [
-            {
-              "type": "url",
-              "title": "View",
-              "payload": "https://google.com"
-            }
-          ]
-        },
+          "type": "url",
+          "title": "View",
+          "payload": "https://www.alza.cz/iphone-se?dq=4827679"
+        }
+      ]
+    },
+    {
+      "title": "iPhone SE 16GB",
+      "text": "8 000 ,-",
+      "image_url": "https://www.imore.com/sites/imore.com/files/styles/larger/public/field/image/2017/03/red-iphone-7-angle.jpg?itok=ulAgOorG",
+      "item_url": "https://www.alza.cz/iphone-se?dq=4827679",
+      "buttons": [
         {
-          "title": "Flight Ticket to Prague",
-          "text": "246 €",
-          "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/21/Peter_Stehlik_2011.07.29_A.jpg",
-          "item_url": "https://en.wikipedia.org/wiki/Prague",
-          "buttons": [
-            {
-              "type": "url",
-              "title": "View",
-              "payload": "https://en.wikipedia.org/wiki/Prague"
-            }
-          ]
+          "type": "url",
+          "title": "View",
+          "payload": "https://www.alza.cz/iphone-se?dq=4827679"
+        }
+      ]
+    },
+    {
+      "title": "iPhone 5",
+      "text": "11 639 ,-",
+      "image_url": "https://blogs-images.forbes.com/gordonkelly/files/2017/07/Screen-2d.jpg",
+      "item_url": "https://www.alza.cz/iphone-se?dq=4827679",
+      "buttons": [
+        {
+          "type": "url",
+          "title": "View",
+          "payload": "https://www.alza.cz/iphone-se?dq=4827679"
         }
       ]
     }
-  }
+  ]
 }
 
 function createButtonsPayload() {
