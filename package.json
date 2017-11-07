@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "run-dev": "cross-env  AMIO_ACCESS_TOKEN=$AMIO_ACCESS_TOKEN DEBUG=amio-demo:* nodemon ./bin/www",
-    "debug-win": "cross-env  AMIO_ACCESS_TOKEN=$AMIO_ACCESS_TOKEN DEBUG=amio-demo:* node %NODE_DEBUG_OPTION% ./bin/www",
-    "run-prod": "cross-env AMIO_ACCESS_TOKEN=$AMIO_ACCESS_TOKEN  DEBUG=amio-demo:* node ./bin/www"
+    "run-dev": "cross-env  AMIO_CHANNEL_ID=$AMIO_CHANNEL_ID AMIO_ACCESS_TOKEN=$AMIO_ACCESS_TOKEN DEBUG=amio-demo:* nodemon ./bin/www",
+    "debug-win": "cross-env  AMIO_CHANNEL_ID=$AMIO_CHANNEL_ID AMIO_ACCESS_TOKEN=$AMIO_ACCESS_TOKEN DEBUG=amio-demo:* node %NODE_DEBUG_OPTION% ./bin/www",
+    "run-prod": "cross-env AMIO_CHANNEL_ID=$AMIO_CHANNEL_ID AMIO_ACCESS_TOKEN=$AMIO_ACCESS_TOKEN  DEBUG=amio-demo:* node ./bin/www"
   },
   "dependencies": {
     "axios": "^0.17.0",

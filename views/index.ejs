@@ -22,12 +22,12 @@
       <input type="text" class="form-control" id="phoneNumber" placeholder="+420123456789">
     </div>
 
-    <div class="form-group">
+    <div class="form-group" style="display: none">
       <label for="exampleFormControlInput1">First Name</label>
       <input type="text" class="form-control" id="firstName">
     </div>
 
-    <div class="form-group">
+    <div class="form-group" style="display: none">
       <label for="exampleFormControlInput1">Last Name</label>
       <input type="text" class="form-control" id="lastName">
     </div>
@@ -65,7 +65,7 @@
 
     axios.post(uri, {
       "channel": {
-        "id": "facebook_messenger_5302931428"
+        "id": "<%- channelId %>"
       },
       "contact": {
         "phone_number": phoneNumber,

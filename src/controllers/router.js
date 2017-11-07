@@ -9,7 +9,7 @@ router.post('/demos/recommendations', errorHandlerMiddleware(demosController.sen
 
 
 router.get('/', function(req, res, next) {
-  res.render('index', { domain: 'Express' });
+  res.render('index', { channelId: process.env.AMIO_CHANNEL_ID });
 });
 
 module.exports = router;
