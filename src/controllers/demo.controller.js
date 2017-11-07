@@ -17,26 +17,33 @@ class DemosController {
     res.json("ok")
   }
 
-  static async sendText(req, res, next) {
-    debug('sendText() - body: ', req.body, ', params: ', req.params)
+  static async sendOrderReady(req, res, next) {
+    debug('sendOrderReady() - body: ', req.body, ', params: ', req.params)
     const {channel, contact} = req.body
 
-    const content = {
+    const contentText = {
       "type": "text",
       "payload": "Vase objednavka 169735313 je po dobu 4 dní pripavena na centrále Alza.cz Jateční 33a, Praha, Po-Ne 0-24. PIN: 8450"
     }
 
-    await messageService.sendMessage(contact, channel, content)
+    const contentStructure = {
+      "type": "structure",
+      "payload": createButtonsPayload()
+    }
+
+
+    await messageService.sendMessage(contact, channel, contentText)
+    await messageService.sendMessage(contact, channel, contentStructure)
     res.json("ok")
   }
 
-  static async sendButtons(req, res, next) {
-    debug('sendButtons() - body: ', req.body, ', params: ', req.params)
+  static async sendRecommendations(req, res, next) {
+    debug('sendRecommendations() - body: ', req.body, ', params: ', req.params)
     const {channel, contact} = req.body
 
     const content = {
       "type": "structure",
-      "payload": createButtonsPayload()
+      "payload": createRecommendationsPayload()
     }
 
     await messageService.sendMessage(contact, channel, content)
@@ -45,10 +52,46 @@ class DemosController {
   }
 }
 
+
+function createRecommendationsPayload() {
+  return {
+    "content": {
+      "type": "structure",
+      "payload": [
+        {
+          "title": "Flight Ticket to Timișoara",
+          "text": "125 €",
+          "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Catedrala_din_Timisoara.jpg",
+          "item_url": "https://www.google.cz/maps/place/Temesvar",
+          "buttons": [
+            {
+              "type": "url",
+              "title": "View",
+              "payload": "https://google.com"
+            }
+          ]
+        },
+        {
+          "title": "Flight Ticket to Prague",
+          "text": "246 €",
+          "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/21/Peter_Stehlik_2011.07.29_A.jpg",
+          "item_url": "https://en.wikipedia.org/wiki/Prague",
+          "buttons": [
+            {
+              "type": "url",
+              "title": "View",
+              "payload": "https://en.wikipedia.org/wiki/Prague"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+
 function createButtonsPayload() {
   return {
-    "title": "Objednávka připravena",
-    "text": "Vase objednavka 169735313 je po dobu 4 dní pripavena, Po-Ne 0-24. PIN: 8450",
+    "title": "Co pro Vás můžeme udělat?",
     "buttons": [
       {
         "type": "url",
