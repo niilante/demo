@@ -1,4 +1,5 @@
 const debug = require('debug')('amio-demo:middleware.general-error-handler')
+const JSON = require('circular-json');
 
 module.exports = (err, req, res, next) => {
   debug(err, err.stack)
@@ -24,5 +25,5 @@ module.exports = (err, req, res, next) => {
   // if (!err.status || err.status >= 500) mailLogger.send(err.stack)
 
   res.status(err.status || 500)
-  res.json(`error - ${err.message}`)
+  res.json(`error - Status ${err.response.status} - ${JSON.stringify(err.response.data)}`)
 }

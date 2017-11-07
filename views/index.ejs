@@ -32,9 +32,15 @@
       <input type="text" class="form-control" id="lastName">
     </div>
 
-    <p><button onclick="submit('receipt')" class="btn btn-primary">Receipt</button></p>
-    <p><button onclick="submit('order-ready')" class="btn btn-primary">Order's ready</button></p>
-    <p><button onclick="submit('recommendations')" class="btn btn-primary">Recommendations</button></p>
+    <p>
+      <button onclick="submit('receipt')" class="btn btn-primary">Receipt</button>
+    </p>
+    <p>
+      <button onclick="submit('order-ready')" class="btn btn-primary">Order's ready</button>
+    </p>
+    <p>
+      <button onclick="submit('recommendations')" class="btn btn-primary">Recommendations</button>
+    </p>
 
   </div>
 
@@ -47,7 +53,7 @@
 </div>
 
 <script>
-  function disableButtons(disabled){
+  function disableButtons(disabled) {
     $('.btn')[0].disabled = disabled
     $('.btn')[1].disabled = disabled
     $('.btn')[2].disabled = disabled
@@ -55,6 +61,7 @@
 
   function submit(type) {
     disableButtons(true)
+    $('.alert-warning')[0].style = "display: none"
     const uri = window.location.origin + '/demos/' + type
     console.log('Submiting to ' + uri);
     const phoneNumber = $('#phoneNumber')[0].value
@@ -82,11 +89,10 @@
     }).catch(function (err) {
       disableButtons(false)
       $('.alert-warning')[0].style = "display: block"
-      $('.alert-warning')[0].innerHTML = err
+      if (err.response) $('.alert-warning')[0].innerHTML = JSON.stringify(err.response)
+      else $('.alert-warning')[0].innerHTML = JSON.stringify(err)
+
       $('.loader')[0].style = "display: none"
-      setTimeout(function () {
-        $('.alert-warning')[0].style = "display: none"
-      }, 3000)
     })
   }
 </script>
