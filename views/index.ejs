@@ -3,12 +3,13 @@
 <head>
   <title>Hello, world!</title>
   <!-- Required meta tags -->
-  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel='stylesheet' href='/stylesheets/style.css'/>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+        integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 </head>
 <body>
 
@@ -16,55 +17,88 @@
   <div class="card-body">
     <h4 class="card-title">Amio Demo</h4>
 
-      <div class="form-group">
-        <label for="exampleFormControlInput1">Phone Number</label>
-        <input type="text" class="form-control" id="phoneNumber" placeholder="+420123456789">
-      </div>
+    <div class="form-group">
+      <label for="exampleFormControlInput1">Phone Number</label>
+      <input type="text" class="form-control" id="phoneNumber" placeholder="+420123456789">
+    </div>
 
-      <div class="form-group">
-        <label for="exampleFormControlInput1">First Name</label>
-        <input type="text" class="form-control" id="firstName">
-      </div>
+    <div class="form-group">
+      <label for="exampleFormControlInput1">First Name</label>
+      <input type="text" class="form-control" id="firstName">
+    </div>
 
-      <div class="form-group">
-        <label for="exampleFormControlInput1">Last Name</label>
-        <input type="text" class="form-control" id="lastName">
-      </div>
+    <div class="form-group">
+      <label for="exampleFormControlInput1">Last Name</label>
+      <input type="text" class="form-control" id="lastName">
+    </div>
 
-      <button onclick="submit('receipt')" class="btn btn-primary">Receipt</button>
-      <button onclick="submit('plain-text')" class="btn btn-primary">Plain Text</button>
-      <button onclick="submit('choices')" class="btn btn-primary">Choices</button>
+    <button onclick="submit('receipt')" class="btn btn-primary">Receipt</button>
+    <button onclick="submit('plain-text')" class="btn btn-primary">Plain Text</button>
+    <button onclick="submit('choices')" class="btn btn-primary">Choices</button>
 
+  </div>
+
+  <div class="loader align-self-center m-5" style="display: none"></div>
+
+  <div class="alert alert-warning" role="alert" style="display: none"></div>
+  <div class="alert alert-success" role="alert" style="display: none">
+    Ok!
   </div>
 </div>
 
 <script>
-    function submit(type){
-      const uri = window.location.origin + '/demos/' + type
-      console.log('Submiting to ' + uri);
-      const phoneNumber = $('#phoneNumber')[0].value
-      const firstName = $('#firstName')[0].value
-      const lastName = $('#lastName')[0].value
+  function disableButtons(disabled){
+    $('.btn')[0].disabled = disabled
+    $('.btn')[1].disabled = disabled
+    $('.btn')[2].disabled = disabled
+  }
 
-      axios.post(uri, {
-        "channel": {
-          "id": "facebook_messenger_5302931428"
-        },
-        "contact": {
-          "phone_number": phoneNumber,
-          "first_name": firstName,
-          "last_name": lastName
-        }
-      }).then(function(response){
-        console.log('OK');
-      }).catch(function(err){
-        console.log(err);
-      })
-    }
+  function submit(type) {
+    disableButtons(true)
+    const uri = window.location.origin + '/demos/' + type
+    console.log('Submiting to ' + uri);
+    const phoneNumber = $('#phoneNumber')[0].value
+    const firstName = $('#firstName')[0].value
+    const lastName = $('#lastName')[0].value
+
+    $('.loader')[0].style = "display: block"
+
+    axios.post(uri, {
+      "channel": {
+        "id": "facebook_messenger_5302931428"
+      },
+      "contact": {
+        "phone_number": phoneNumber,
+        "first_name": firstName,
+        "last_name": lastName
+      }
+    }).then(function () {
+      disableButtons(false)
+      $('.alert-success')[0].style = "display: block"
+      $('.loader')[0].style = "display: none"
+      setTimeout(function () {
+        $('.alert-success')[0].style = "display: none"
+      }, 3000)
+    }).catch(function (err) {
+      disableButtons(false)
+      $('.alert-warning')[0].style = "display: block"
+      $('.alert-warning')[0].innerHTML = err
+      $('.loader')[0].style = "display: none"
+      setTimeout(function () {
+        $('.alert-warning')[0].style = "display: none"
+      }, 3000)
+    })
+  }
 </script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+        integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+        integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
 </body>
 </html>
