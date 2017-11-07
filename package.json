@@ -3,9 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "run-dev": "cross-env  AMIO_ACCESS_TOKEN=$AMIO_ACCESS_TOKEN DEBUG=amio-demo:* nodemon ./bin/www",
+    "run-prod": "cross-env AMIO_ACCESS_TOKEN=$AMIO_ACCESS_TOKEN  DEBUG=amio-demo:* node ./bin/www"
   },
   "dependencies": {
+    "axios": "^0.17.0",
     "body-parser": "~1.18.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
@@ -13,5 +15,9 @@
     "express": "~4.15.5",
     "morgan": "~1.9.0",
     "serve-favicon": "~2.4.5"
+  },
+  "devDependencies": {
+    "cross-env": "^5.1.1",
+    "nodemon": "^1.12.1"
   }
 }

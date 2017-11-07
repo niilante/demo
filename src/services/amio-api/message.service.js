@@ -6,7 +6,14 @@ class MessageService {
     this.path = '/messages'
   }
 
-  sendMessage(message) {
+  sendMessage(contact, channel, content) {
+    const message = {
+      contact,
+      channel,
+      content
+    }
+
+
     return amioHttpClient
       .post(this.path, message)
       .then(response => response.data)

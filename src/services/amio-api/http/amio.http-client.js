@@ -1,7 +1,7 @@
 const axios = require('axios')
 
 const amioHttpClient = axios.create({
-  baseURL: 'https://app.amio.io',
+  baseURL: 'https://app.amio.io/api/v1',
   headers: {'X-Requested-With': 'XMLHttpRequest'}
 })
 
