@@ -1,13 +1,11 @@
 const debug = require('debug')('amio-demo:demo.controller')
 const messageService = require('../services/amio-api/message.service')
-const os = require('os')
 
 
 class DemosController {
 
   static async sendReceipt(req, res, next) {
     debug('sendReceipt() - body: ', req.body, ', params: ', req.params)
-    debug(os.hostname())
     const {channel, contact} = req.body
 
     const content = {
@@ -20,8 +18,7 @@ class DemosController {
   }
 
   static async sendText(req, res, next) {
-    debug('sendReceipt() - body: ', req.body, ', params: ', req.params)
-    debug(os.hostname())
+    debug('sendText() - body: ', req.body, ', params: ', req.params)
     const {channel, contact} = req.body
 
     const content = {
@@ -34,18 +31,41 @@ class DemosController {
   }
 
   static async sendButtons(req, res, next) {
-    debug('sendReceipt() - body: ', req.body, ', params: ', req.params)
-    debug(os.hostname())
+    debug('sendButtons() - body: ', req.body, ', params: ', req.params)
     const {channel, contact} = req.body
 
     const content = {
-      "type": "text",
-      "payload": "Vase objednavka 169735313 je po dobu 4 dní pripavena na centrále Alza.cz Jateční 33a, Praha, Po-Ne 0-24. PIN: 8450"
+      "type": "structure",
+      "payload": createButtonsPayload()
     }
 
     await messageService.sendMessage(contact, channel, content)
     res.json("ok")
 
+  }
+}
+
+function createButtonsPayload() {
+  return {
+    "title": "Objednávka připravena",
+    "text": "Vase objednavka 169735313 je po dobu 4 dní pripavena, Po-Ne 0-24. PIN: 8450",
+    "buttons": [
+      {
+        "type": "url",
+        "title": "Administrace",
+        "payload": "https://www.alza.cz/muj-ucet/objednavky.htm"
+      },
+      {
+        "type": "url",
+        "title": "Mapa pobočky",
+        "payload": "https://www.google.cz/maps/place/Alza.cz/@50.0187822,14.4139146,11z/data=!4m8!1m2!2m1!1salza!3m4!1s0x0:0xfa40453d9fa60a30!8m2!3d50.0312323!4d14.533968?hl=en"
+      },
+      {
+        "type": "url",
+        "title": "Kontaktní formulář",
+        "payload": "https://www.alza.cz/kontakt/"
+      }
+    ]
   }
 }
 
