@@ -14,6 +14,6 @@ To sign up, send an email to [hello@amio.io](hello@amio.io).
 
 
 1. `npm install`
-2. In **package.json/scripts**, peplace `$AMIO_ACCESS_TOKEN` and `$AMIO_CHANNEL_ID` with the actual values.
+2. In **package.json/scripts**, replace `$AMIO_ACCESS_TOKEN` and `$AMIO_CHANNEL_ID` with the actual values.
 3. `npm run-script run-dev`
 4. Go to http://localhost:3000 and check it out.
